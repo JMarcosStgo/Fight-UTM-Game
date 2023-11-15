@@ -20,8 +20,8 @@ public class PlayerAcciones : MonoBehaviour
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
-        mandoX = Input.GetAxis("6th axis");
-        mandoY = Input.GetAxis("7th axis");
+        mandoX = Input.GetAxis("6th axis1");
+        mandoY = Input.GetAxis("7th axis1");
 
         transform.Rotate(0, y * Time.deltaTime * rotacion, 0);
         transform.Translate(0, 0, x * Time.deltaTime * velocidad);
@@ -33,22 +33,22 @@ public class PlayerAcciones : MonoBehaviour
         anim.SetFloat("X", x);
         //anim.SetFloat("X", mandoX);
 
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetKey(KeyCode.Joystick2Button2))
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetKey(KeyCode.Joystick1Button2))
         {
             anim.SetTrigger("punch1");
         }
 
-        if (Input.GetKeyDown(KeyCode.B) || Input.GetKey(KeyCode.Joystick2Button3))
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetKey(KeyCode.Joystick1Button3))
         {
             anim.SetTrigger("punch2");
         }
 
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetKey(KeyCode.Joystick2Button0))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button0))
         {
             anim.SetTrigger("kick1");
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKey(KeyCode.Joystick2Button1))
+        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKey(KeyCode.Joystick1Button1))
         {
             anim.SetTrigger("kick2");
         }
