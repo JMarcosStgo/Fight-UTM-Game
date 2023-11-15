@@ -12,7 +12,7 @@ public class EnemyAcciones : MonoBehaviour
     NavMeshAgent agent;
     Transform target;
     // Start is called before the first frame update
-    private void Awake()
+    void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
