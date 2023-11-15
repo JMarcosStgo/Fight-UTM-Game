@@ -17,8 +17,8 @@ public class PlayerAcciones : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        x = Input.GetAxis("Horizontal1");
+        y = Input.GetAxis("Vertical1");
 
         mandoX = Input.GetAxis("6th axis1");
         mandoY = Input.GetAxis("7th axis1");
@@ -33,34 +33,36 @@ public class PlayerAcciones : MonoBehaviour
         anim.SetFloat("X", x);
         //anim.SetFloat("X", mandoX);
 
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetKey(KeyCode.Joystick1Button2))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.Joystick1Button2))
         {
             anim.SetTrigger("punch1");
         }
 
-        if (Input.GetKeyDown(KeyCode.B) || Input.GetKey(KeyCode.Joystick1Button3))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.Joystick1Button3))
         {
             anim.SetTrigger("punch2");
         }
 
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button0))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button0))
         {
             anim.SetTrigger("kick1");
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKey(KeyCode.Joystick1Button1))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.Joystick1Button1))
         {
             anim.SetTrigger("kick2");
         }
 
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             anim.SetTrigger("victory");
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             anim.SetTrigger("lose");
+            return;
         }
     }
 }

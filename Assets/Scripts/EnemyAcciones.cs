@@ -45,15 +45,23 @@ public class EnemyAcciones : MonoBehaviour
         }
         else
         {
-            //Vector3 direccion = player.transform.position - transform.position;
-            //direccion.Normalize();
-            //transform.Translate(direccion * Time.deltaTime);
             agent.SetDestination(target.position);
             float speed;
             speed = agent.velocity.magnitude;
             speed = Mathf.Clamp01(speed);
             anim.SetFloat("X", speed, 0.1f, Time.deltaTime);
-            //transform.Translate(0, 0, speed * Time.deltaTime);
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            anim.SetTrigger("victory");
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            anim.SetTrigger("lose");
+            return;
         }
     }
 }
