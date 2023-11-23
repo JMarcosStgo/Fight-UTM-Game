@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class HideText : MonoBehaviour, IPointerEnterHandler
 
 {
-    public Text[] WhateverTextThingy; 
-
+    public Text[] WhateverTextThingy;
+    public AudioSource audioSource;
     private float timeCont = 0f;
     private string textoo;
 
@@ -23,16 +23,18 @@ public class HideText : MonoBehaviour, IPointerEnterHandler
             WhateverTextThingy[0].text = "";
             WhateverTextThingy[1].text = "";
             WhateverTextThingy[2].text = "";
-
+            WhateverTextThingy[3].text = "";
         }
 
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        audioSource.Play();
         WhateverTextThingy[0].text = textoo;
         WhateverTextThingy[1].text = "COMENZAR";
         WhateverTextThingy[2].text = "MULTIJUGADOR";
+        WhateverTextThingy[3].text = "SALIR";
         timeCont = 0f;
     }
 
