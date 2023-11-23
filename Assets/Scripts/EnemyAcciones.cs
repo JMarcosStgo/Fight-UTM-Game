@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAcciones : MonoBehaviour
 {
     private Animator anim;
-    public GameObject player = new GameObject();
+    //public GameObject player = new GameObject();
     public float distanciaDeteccion = 1.5f;
     NavMeshAgent agent;
     Transform target;
@@ -20,7 +21,8 @@ public class EnemyAcciones : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        target = player.transform;
+        //target = player.transform;
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class EnemyAcciones : MonoBehaviour
             if (!animacion)
             {
                 aux = 0;
-                float distancia = Vector3.Distance(transform.position, player.transform.position);
+                float distancia = Vector3.Distance(transform.position, target.position);
                 if (distancia < distanciaDeteccion)
                 {
                     int accion = UnityEngine.Random.Range(0, dificultad);
