@@ -9,6 +9,8 @@ public class HideText : MonoBehaviour, IPointerEnterHandler
     public AudioSource audioSource;
     private float timeCont = 0f;
     private string textoo;
+    public GameObject[] panel;
+
 
     private void Start()
     {
@@ -24,6 +26,10 @@ public class HideText : MonoBehaviour, IPointerEnterHandler
             WhateverTextThingy[1].text = "";
             WhateverTextThingy[2].text = "";
             WhateverTextThingy[3].text = "";
+            panel[0].SetActive(false);
+            panel[1].SetActive(false);
+            panel[2].SetActive(false);
+
         }
 
     }
@@ -31,12 +37,15 @@ public class HideText : MonoBehaviour, IPointerEnterHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         audioSource.Play();
+        panel[0].SetActive(true);
+        panel[1].SetActive(true);
+        panel[2].SetActive(true);
         WhateverTextThingy[0].text = textoo;
         WhateverTextThingy[1].text = "COMENZAR";
         WhateverTextThingy[2].text = "MULTIJUGADOR";
         WhateverTextThingy[3].text = "SALIR";
         timeCont = 0f;
     }
-
     
+
 }

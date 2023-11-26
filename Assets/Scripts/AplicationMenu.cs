@@ -23,7 +23,7 @@ public class AplicationQuit : MonoBehaviour, IPointerClickHandler
     }
     void comenzar()
     {
-        SceneManager.LoadScene("Entrada");
+        SceneManager.LoadScene("SeletScene");
     }
 
     // Evento que captura el click sobre el botón
@@ -34,6 +34,7 @@ public class AplicationQuit : MonoBehaviour, IPointerClickHandler
         {
             exit();
         }
+
         if (textoo == "COMENZAR")
         {
             comenzar();
