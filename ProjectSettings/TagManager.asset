@@ -6,6 +6,9 @@ TagManager:
   tags:
   - textMulti
   - Nav
+  - selectSceneComputacion
+  - selectSceneEntradautm
+  - audioManager
   layers:
   - Default
   - TransparentFX
