@@ -57189,7 +57189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanciaDeteccion: 1.5
-  dificultad: 500
+  dificultad: 50
 --- !u!136 &2016788550
 CapsuleCollider:
   m_ObjectHideFlags: 0
