@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class EnemyAcciones : MonoBehaviour
 {
@@ -16,12 +17,12 @@ public class EnemyAcciones : MonoBehaviour
     private int aux = 0;
     private bool fin = false;
     public int dificultad;
+    public UnityEvent OnAtaque;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        //target = player.transform;
         target = GameObject.FindWithTag("Player").transform;
     }
 
@@ -41,21 +42,25 @@ public class EnemyAcciones : MonoBehaviour
                     {
                         anim.SetTrigger("punch1");
                         animacion = true;
+                        OnAtaque.Invoke();
                     }
                     else if (accion == ((dificultad / 5)*2))
                     {
                         anim.SetTrigger("punch2");
                         animacion = true;
+                        OnAtaque.Invoke();
                     }
                     else if (accion == ((dificultad / 5)*3))
                     {
                         anim.SetTrigger("kick1");
                         animacion = true;
+                        OnAtaque.Invoke();
                     }
                     else if (accion == ((dificultad / 5)*4))
                     {
                         anim.SetTrigger("kick2");
                         animacion = true;
+                        OnAtaque.Invoke();
                     }
                 }
                 else
@@ -72,6 +77,11 @@ public class EnemyAcciones : MonoBehaviour
                 if (walk <= 2)
                 {
                     anim.SetFloat("X", 0);
+                }
+
+                if (distancia < distanciaDeteccion)
+                {
+                    FindObjectOfType<PlayerAcciones>().OnAtaque.AddListener(RecibirGolpe);
                 }
 
                 if (Input.GetKeyDown(KeyCode.H))
@@ -96,6 +106,21 @@ public class EnemyAcciones : MonoBehaviour
                     animacion = false;
                 }
             }
+        }
+    }
+
+    void RecibirGolpe()
+    {
+        int hit = UnityEngine.Random.Range(0, 3);
+        if (hit == 0)
+        {
+            anim.SetTrigger("hit1");
+            animacion = true;
+        }
+        else
+        {
+            anim.SetTrigger("hit2");
+            animacion = true;
         }
     }
 }

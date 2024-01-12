@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player2Acciones : MonoBehaviour
 {
-    public float velocidad = 0.0f;
+    public float velocidad = 3.0f;
     public float rotacion = 100.0f;
     private Animator anim;
     public float x, y, mandoX, mandoY;
     private bool animacion = false;
     private int aux = 0;
     private bool fin = false;
+    public UnityEvent OnAtaque;
+    public float distanciaDeteccion = 1.5f;
+    Transform target;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -45,24 +51,34 @@ public class Player2Acciones : MonoBehaviour
                 {
                     anim.SetTrigger("punch1");
                     animacion = true;
+                    OnAtaque.Invoke();
                 }
 
                 if (Input.GetKeyDown(KeyCode.I) || Input.GetKey(KeyCode.Joystick2Button3))
                 {
                     anim.SetTrigger("punch2");
                     animacion = true;
+                    OnAtaque.Invoke();
                 }
 
                 if (Input.GetKeyDown(KeyCode.K) || Input.GetKey(KeyCode.Joystick2Button0))
                 {
                     anim.SetTrigger("kick1");
                     animacion = true;
+                    OnAtaque.Invoke();
                 }
 
                 if (Input.GetKeyDown(KeyCode.L) || Input.GetKey(KeyCode.Joystick2Button1))
                 {
                     anim.SetTrigger("kick2");
                     animacion = true;
+                    OnAtaque.Invoke();
+                }
+
+                float distancia = Vector3.Distance(transform.position, target.position);
+                if (distancia < distanciaDeteccion)
+                {
+                    FindObjectOfType<Player1Acciones>().OnAtaque.AddListener(RecibirGolpe);
                 }
 
                 if (Input.GetKeyDown(KeyCode.H))
@@ -87,6 +103,21 @@ public class Player2Acciones : MonoBehaviour
                     animacion = false;
                 }
             }
+        }
+    }
+
+    void RecibirGolpe()
+    {
+        int hit = Random.Range(0, 3);
+        if (hit == 0)
+        {
+            anim.SetTrigger("hit1");
+            animacion = true;
+        }
+        else
+        {
+            anim.SetTrigger("hit2");
+            animacion = true;
         }
     }
 }

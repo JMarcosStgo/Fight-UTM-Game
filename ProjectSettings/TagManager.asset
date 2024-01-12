@@ -9,6 +9,8 @@ TagManager:
   - selectSceneComputacion
   - selectSceneEntradautm
   - audioManager
+  - Player2
+  - Enemy
   layers:
   - Default
   - TransparentFX
