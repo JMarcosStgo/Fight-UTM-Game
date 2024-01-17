@@ -16,11 +16,21 @@ public class PlayerAcciones : MonoBehaviour
     public float distanciaDeteccion = 1.5f;
     Transform target;
     Transform target2;
+    public ParticleSystem start;
+    public ParticleSystem Light;
+    public AudioClip golpe;
+    public AudioClip win;
+    public AudioClip lose;
+    public AudioClip ouch;
+    private AudioSource playerAudio;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         target = GameObject.FindWithTag("Enemy").transform;
+        start.Stop();
+        Light.Stop();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -52,6 +62,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("punch1");
                     animacion = true;
                     OnAtaque.Invoke();
+                    playerAudio.PlayOneShot(golpe, 1.0f);
                 }
 
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.Joystick1Button3))
@@ -59,6 +70,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("punch2");
                     animacion = true;
                     OnAtaque.Invoke();
+                    playerAudio.PlayOneShot(golpe, 1.0f);
                 }
 
                 if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button0))
@@ -66,6 +78,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("kick1");
                     animacion = true;
                     OnAtaque.Invoke();
+                    playerAudio.PlayOneShot(golpe, 1.0f);
                 }
 
                 if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.Joystick1Button1))
@@ -73,6 +86,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("kick2");
                     animacion = true;
                     OnAtaque.Invoke();
+                    playerAudio.PlayOneShot(golpe, 1.0f);
                 }
 
                 float distancia = Vector3.Distance(transform.position, target.position);
@@ -86,6 +100,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("victory");
                     animacion = true;
                     fin = true;
+                    playerAudio.PlayOneShot(win, 1.7f);
                 }
 
                 if (Input.GetKeyDown(KeyCode.H))
@@ -93,6 +108,7 @@ public class PlayerAcciones : MonoBehaviour
                     anim.SetTrigger("lose");
                     animacion = true;
                     fin = true;
+                    playerAudio.PlayOneShot(lose, 2.0f);
                 }
             }
             else
@@ -101,6 +117,8 @@ public class PlayerAcciones : MonoBehaviour
                 if (aux == 60)
                 {
                     animacion = false;
+                    start.Stop();
+                    Light.Stop();
                 }
             }
         }
@@ -113,11 +131,21 @@ public class PlayerAcciones : MonoBehaviour
         {
             anim.SetTrigger("hit1");
             animacion = true;
+            StartCoroutine(Esperar());
         }
         else
         {
             anim.SetTrigger("hit2");
             animacion = true;
+            StartCoroutine(Esperar());
         }
+    }
+
+    IEnumerator Esperar()
+    {
+        yield return new WaitForSeconds(0.3f);
+        playerAudio.PlayOneShot(ouch, 0.5f);
+        start.Play();
+        Light.Play();
     }
 }

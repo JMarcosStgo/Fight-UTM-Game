@@ -310,7 +310,7 @@ InputManager:
     axis: 6
     joyNum: 1
   - serializedVersion: 3
-    m_Name: 6th axis 2
+    m_Name: 6th axis2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -326,7 +326,7 @@ InputManager:
     axis: 5
     joyNum: 2
   - serializedVersion: 3
-    m_Name: 7th axis 2
+    m_Name: 7th axis2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 

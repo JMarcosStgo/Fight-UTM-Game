@@ -18,12 +18,20 @@ public class EnemyAcciones : MonoBehaviour
     private bool fin = false;
     public int dificultad;
     public UnityEvent OnAtaque;
+    public ParticleSystem start;
+    public ParticleSystem Light;
+    public AudioClip golpe;
+    public AudioClip ouch;
+    private AudioSource playerAudio;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("Player").transform;
+        start.Stop();
+        Light.Stop();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,24 +51,28 @@ public class EnemyAcciones : MonoBehaviour
                         anim.SetTrigger("punch1");
                         animacion = true;
                         OnAtaque.Invoke();
+                        playerAudio.PlayOneShot(golpe, 1.0f);
                     }
                     else if (accion == ((dificultad / 5)*2))
                     {
                         anim.SetTrigger("punch2");
                         animacion = true;
                         OnAtaque.Invoke();
+                        playerAudio.PlayOneShot(golpe, 1.0f);
                     }
                     else if (accion == ((dificultad / 5)*3))
                     {
                         anim.SetTrigger("kick1");
                         animacion = true;
                         OnAtaque.Invoke();
+                        playerAudio.PlayOneShot(golpe, 1.0f);
                     }
                     else if (accion == ((dificultad / 5)*4))
                     {
                         anim.SetTrigger("kick2");
                         animacion = true;
                         OnAtaque.Invoke();
+                        playerAudio.PlayOneShot(golpe, 1.0f);
                     }
                 }
                 else
@@ -104,6 +116,8 @@ public class EnemyAcciones : MonoBehaviour
                 if (aux == 60)
                 {
                     animacion = false;
+                    start.Stop();
+                    Light.Stop();
                 }
             }
         }
@@ -116,11 +130,21 @@ public class EnemyAcciones : MonoBehaviour
         {
             anim.SetTrigger("hit1");
             animacion = true;
+            StartCoroutine(Esperar());
         }
         else
         {
             anim.SetTrigger("hit2");
             animacion = true;
+            StartCoroutine(Esperar());
         }
+    }
+
+    IEnumerator Esperar()
+    {
+        yield return new WaitForSeconds(0.3f);
+        playerAudio.PlayOneShot(ouch, 0.5f);
+        start.Play();
+        Light.Play();
     }
 }
