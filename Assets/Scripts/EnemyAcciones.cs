@@ -18,11 +18,13 @@ public class EnemyAcciones : MonoBehaviour
     private bool fin = false;
     public int dificultad;
     public UnityEvent OnAtaque;
+    public UnityEvent pierde;
     public ParticleSystem start;
     public ParticleSystem Light;
     public AudioClip golpe;
     public AudioClip ouch;
     private AudioSource playerAudio;
+    public int vida = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -96,15 +98,18 @@ public class EnemyAcciones : MonoBehaviour
                     FindObjectOfType<PlayerAcciones>().OnAtaque.AddListener(RecibirGolpe);
                 }
 
-                if (Input.GetKeyDown(KeyCode.H))
-                {
-                    anim.SetTrigger("victory");
-                    animacion = true;
-                    fin = true;
-                }
+                FindObjectOfType<PlayerAcciones>().pierde.AddListener(Win);
+                //if (Input.GetKeyDown(KeyCode.H))
+                //{
+                    //anim.SetTrigger("victory");
+                    //animacion = true;
+                    //fin = true;
+                //}
 
-                if (Input.GetKeyDown(KeyCode.Y))
+                //if (Input.GetKeyDown(KeyCode.Y))
+                if (vida <= 0)
                 {
+                    pierde.Invoke();
                     anim.SetTrigger("lose");
                     animacion = true;
                     fin = true;
@@ -123,16 +128,28 @@ public class EnemyAcciones : MonoBehaviour
         }
     }
 
+    void Win()
+    {
+        anim.SetTrigger("victory");
+        animacion = true;
+        fin = true;
+    }
+
     void RecibirGolpe()
     {
         int hit = UnityEngine.Random.Range(0, 3);
-        if (hit == 0)
+        vida -= 2;
+        if (vida <= 0)
+        {
+            Debug.Log("Player Win");
+        }
+        else if (hit == 0)
         {
             anim.SetTrigger("hit1");
             animacion = true;
             StartCoroutine(Esperar());
         }
-        else
+        else if (hit == 1)
         {
             anim.SetTrigger("hit2");
             animacion = true;

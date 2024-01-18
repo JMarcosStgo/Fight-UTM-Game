@@ -13496,6 +13496,9 @@ MonoBehaviour:
   OnAtaque:
     m_PersistentCalls:
       m_Calls: []
+  pierde:
+    m_PersistentCalls:
+      m_Calls: []
   distanciaDeteccion: 1.5
   start: {fileID: 312696110}
   Light: {fileID: 719876861}
@@ -13503,6 +13506,7 @@ MonoBehaviour:
   win: {fileID: 8300000, guid: 7ef73f31c809af84d8fa29655bb5235e, type: 3}
   lose: {fileID: 8300000, guid: bea3d750d7f141248b608992dd91e6c9, type: 3}
   ouch: {fileID: 8300000, guid: 17a33c97b85f90046b8f290b353f0b87, type: 3}
+  vida: 100
 --- !u!4 &443957130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dca1a322979090c4fa87a11b97e446a9, type: 3}
@@ -57463,14 +57467,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanciaDeteccion: 1.5
-  dificultad: 500
+  dificultad: 100
   OnAtaque:
+    m_PersistentCalls:
+      m_Calls: []
+  pierde:
     m_PersistentCalls:
       m_Calls: []
   start: {fileID: 1313065974}
   Light: {fileID: 1984266273}
   golpe: {fileID: 8300000, guid: d76414d49b7985140b31c303bc703f85, type: 3}
   ouch: {fileID: 8300000, guid: 58957b1aaad4b37458f8a686fd84fe64, type: 3}
+  vida: 100
 --- !u!136 &2016788550
 CapsuleCollider:
   m_ObjectHideFlags: 0

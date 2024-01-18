@@ -13,6 +13,7 @@ public class PlayerAcciones : MonoBehaviour
     private int aux = 0;
     private bool fin = false;
     public UnityEvent OnAtaque;
+    public UnityEvent pierde;
     public float distanciaDeteccion = 1.5f;
     Transform target;
     Transform target2;
@@ -23,6 +24,7 @@ public class PlayerAcciones : MonoBehaviour
     public AudioClip lose;
     public AudioClip ouch;
     private AudioSource playerAudio;
+    public int vida = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,16 +97,19 @@ public class PlayerAcciones : MonoBehaviour
                     FindObjectOfType<EnemyAcciones>().OnAtaque.AddListener(RecibirGolpe);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Y))
-                {
-                    anim.SetTrigger("victory");
-                    animacion = true;
-                    fin = true;
-                    playerAudio.PlayOneShot(win, 1.7f);
-                }
+                FindObjectOfType<EnemyAcciones>().pierde.AddListener(Win);
+                //if (Input.GetKeyDown(KeyCode.Y))
+                //{
+                    //anim.SetTrigger("victory");
+                    //animacion = true;
+                    //fin = true;
+                    //playerAudio.PlayOneShot(win, 1.7f);
+                //}
 
-                if (Input.GetKeyDown(KeyCode.H))
+                //if (Input.GetKeyDown(KeyCode.H))
+                if (vida <= 0)
                 {
+                    pierde.Invoke();
                     anim.SetTrigger("lose");
                     animacion = true;
                     fin = true;
@@ -124,16 +129,29 @@ public class PlayerAcciones : MonoBehaviour
         }
     }
 
+    void Win()
+    {
+        anim.SetTrigger("victory");
+        animacion = true;
+        fin = true;
+        playerAudio.PlayOneShot(win, 1.7f);
+    }
+
     void RecibirGolpe()
     {
         int hit = Random.Range(0, 3);
-        if (hit == 0)
+        vida -= 2;
+        if (vida <= 0)
+        {
+            Debug.Log("Enemy Win");
+        }
+        else if (hit == 0)
         {
             anim.SetTrigger("hit1");
             animacion = true;
             StartCoroutine(Esperar());
         }
-        else
+        else  if (hit == 1) 
         {
             anim.SetTrigger("hit2");
             animacion = true;
