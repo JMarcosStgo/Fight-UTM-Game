@@ -134,7 +134,7 @@ public class Player2Acciones : MonoBehaviour
         anim.SetTrigger("victory");
         animacion = true;
         fin = true;
-        playerAudio.PlayOneShot(win, 1.7f);
+        StartCoroutine(Esperar2());
     }
 
     void RecibirGolpe()
@@ -165,5 +165,11 @@ public class Player2Acciones : MonoBehaviour
         playerAudio.PlayOneShot(ouch, 0.5f);
         start.Play();
         Light.Play();
+    }
+
+    IEnumerator Esperar2()
+    {
+        yield return new WaitForSeconds(2.0f);
+        playerAudio.PlayOneShot(win, 1.7f);
     }
 }
